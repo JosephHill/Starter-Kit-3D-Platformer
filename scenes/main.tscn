@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bqqgyqafm7xwp"]
+[gd_scene load_steps=19 format=3 uid="uid://bqqgyqafm7xwp"]
 
 [ext_resource type="Environment" uid="uid://bqnqgflivjvue" path="res://scenes/main-environment.tres" id="1_ahusb"]
 [ext_resource type="PackedScene" uid="uid://dl2ed4gkybggf" path="res://objects/player.tscn" id="2_onms2"]
@@ -12,7 +12,11 @@
 [ext_resource type="Script" path="res://scripts/hud.gd" id="11_apvpm"]
 [ext_resource type="PackedScene" uid="uid://dy017k58p20sk" path="res://objects/cloud.tscn" id="13_drtpy"]
 [ext_resource type="Texture2D" uid="uid://cd7oyc56ehkx1" path="res://sprites/coin.png" id="13_jfda3"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="14_27d1h"]
+[ext_resource type="Texture2D" uid="uid://wdj7e3cd3plt" path="res://sprites/transparentDarkZoomIn.png" id="15_fg80i"]
+[ext_resource type="Texture2D" uid="uid://6jb2lsevfi6s" path="res://sprites/transparentDarkZoomOut.png" id="16_8t0kb"]
 [ext_resource type="FontFile" uid="uid://d0cxd77jybrcn" path="res://fonts/lilita_one_regular.ttf" id="17_tk810"]
+[ext_resource type="Texture2D" uid="uid://chgqthmpp8u60" path="res://sprites/transparentDarkJump.png" id="17_u227l"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_38ys3"]
 font = ExtResource("17_tk810")
@@ -161,5 +165,108 @@ offset_right = 368.0
 offset_bottom = 123.0
 text = "0"
 label_settings = SubResource("LabelSettings_38ys3")
+
+[node name="Control" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="LeftControl" type="Control" parent="HUD/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LeftJoypad" parent="HUD/Control/HBoxContainer/LeftControl" instance=ExtResource("14_27d1h")]
+layout_mode = 1
+anchors_preset = 15
+anchor_top = 0.0
+anchor_right = 1.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+joystick_mode = 2
+visibility_mode = 2
+action_left = "move_left"
+action_right = "move_right"
+action_up = "move_forward"
+action_down = "move_back"
+
+[node name="RightControl" type="Control" parent="HUD/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RightJoypad" parent="HUD/Control/HBoxContainer/RightControl" instance=ExtResource("14_27d1h")]
+layout_mode = 1
+anchors_preset = 15
+anchor_top = 0.0
+anchor_right = 1.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+joystick_mode = 2
+visibility_mode = 2
+action_left = "camera_left"
+action_right = "camera_right"
+action_up = "camera_up"
+action_down = "camera_down"
+
+[node name="Control" type="Control" parent="HUD/Control/HBoxContainer"]
+custom_minimum_size = Vector2(110, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="ZoomControl" type="Control" parent="HUD/Control/HBoxContainer/Control"]
+custom_minimum_size = Vector2(100, 2.08165e-12)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -110.0
+grow_horizontal = 0
+
+[node name="ZoomInButton" type="TouchScreenButton" parent="HUD/Control/HBoxContainer/Control/ZoomControl"]
+position = Vector2(2.08165e-12, 10)
+texture_normal = ExtResource("15_fg80i")
+action = "zoom_in"
+visibility_mode = 1
+
+[node name="ZoomOutButton" type="TouchScreenButton" parent="HUD/Control/HBoxContainer/Control/ZoomControl"]
+position = Vector2(2.08165e-12, 110)
+texture_normal = ExtResource("16_8t0kb")
+action = "zoom_out"
+visibility_mode = 1
+
+[node name="ActionControl" type="Control" parent="HUD/Control/HBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="JumpButton" type="TouchScreenButton" parent="HUD/Control/HBoxContainer/Control/ActionControl"]
+position = Vector2(-60, -60)
+texture_normal = ExtResource("17_u227l")
+action = "jump"
+visibility_mode = 1
 
 [connection signal="coin_collected" from="Player" to="HUD" method="_on_coin_collected"]
