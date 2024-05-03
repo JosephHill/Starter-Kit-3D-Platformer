@@ -225,33 +225,7 @@ action_right = "camera_right"
 action_up = "camera_up"
 action_down = "camera_down"
 
-[node name="Control" type="Control" parent="HUD/Control/HBoxContainer"]
-custom_minimum_size = Vector2(110, 2.08165e-12)
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="ZoomControl" type="Control" parent="HUD/Control/HBoxContainer/Control"]
-custom_minimum_size = Vector2(100, 2.08165e-12)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -110.0
-grow_horizontal = 0
-
-[node name="ZoomInButton" type="TouchScreenButton" parent="HUD/Control/HBoxContainer/Control/ZoomControl"]
-position = Vector2(2.08165e-12, 10)
-texture_normal = ExtResource("15_fg80i")
-action = "zoom_in"
-visibility_mode = 1
-
-[node name="ZoomOutButton" type="TouchScreenButton" parent="HUD/Control/HBoxContainer/Control/ZoomControl"]
-position = Vector2(2.08165e-12, 110)
-texture_normal = ExtResource("16_8t0kb")
-action = "zoom_out"
-visibility_mode = 1
-
-[node name="ActionControl" type="Control" parent="HUD/Control/HBoxContainer/Control"]
+[node name="ActionControl" type="Control" parent="HUD/Control/HBoxContainer/RightControl"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -263,10 +237,32 @@ offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="JumpButton" type="TouchScreenButton" parent="HUD/Control/HBoxContainer/Control/ActionControl"]
-position = Vector2(-60, -60)
+[node name="JumpButton" type="TouchScreenButton" parent="HUD/Control/HBoxContainer/RightControl/ActionControl"]
+position = Vector2(-200, -200)
+scale = Vector2(2, 2)
 texture_normal = ExtResource("17_u227l")
 action = "jump"
+visibility_mode = 1
+
+[node name="ZoomControl" type="Control" parent="HUD/Control/HBoxContainer/RightControl"]
+custom_minimum_size = Vector2(100, 2.08165e-12)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -110.0
+grow_horizontal = 0
+
+[node name="ZoomInButton" type="TouchScreenButton" parent="HUD/Control/HBoxContainer/RightControl/ZoomControl"]
+position = Vector2(-50, 90)
+texture_normal = ExtResource("15_fg80i")
+action = "zoom_in"
+visibility_mode = 1
+
+[node name="ZoomOutButton" type="TouchScreenButton" parent="HUD/Control/HBoxContainer/RightControl/ZoomControl"]
+position = Vector2(-50, 200)
+texture_normal = ExtResource("16_8t0kb")
+action = "zoom_out"
 visibility_mode = 1
 
 [connection signal="coin_collected" from="Player" to="HUD" method="_on_coin_collected"]
